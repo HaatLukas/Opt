@@ -37,7 +37,7 @@ matrix fitnessFunction(matrix forces, matrix ud1, matrix ud2) {
 		double F = forces(forceIndex, 0);
 
 		if (F < -2 || F > 2) {
-			penalty += 50.0 * (std::abs(F) - 2);  // Mniejsza kara, ale nadal istotna
+			penalty += 50.0 * (std::abs(F) - 2);  
 		}
 
 		double a = (F - b * v) / m;
@@ -115,15 +115,12 @@ solution GA(matrix(*ff)(matrix, matrix, matrix), int N, matrix lb, matrix ub, in
 				}
 			}
 
-			// Aktualizacja populacji
 			for (auto& sol : selected_population) sol.fit_fun(ff, ud1, ud2);
 			population = selected_population;
 
-			// Sprawdzenie kryterium stopu
 			iter++;
 		}
 
-		// Zwracanie najlepszego rozwi¹zania
 		solution best_sol = population[0];
 		for (const auto& sol : population) {
 			if (sol.y(0, 0) < best_sol.y(0, 0)) best_sol = sol;
